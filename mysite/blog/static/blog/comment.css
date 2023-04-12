@@ -1,0 +1,30 @@
+#comnt {
+    margin:3rem auto;
+    width:90%;
+    max-width: 60rem;
+    border-radius: 12px;
+    border-color: white;
+    box-shadow:0 2px 8 px rgba(0,0,0,0.25);
+    padding: 1px;
+    border:1px solid grey;
+}
+
+#comnt ul{
+    list-style: none;
+    margin:30px;
+    padding:0;
+}
+
+#comnt li{
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #ccc;
+}
+
+#comnt li:last-of-type{
+    border-bottom: none;
+}
+
+#comnt h2{
+    color:rgb(48, 48, 48);
+}
+

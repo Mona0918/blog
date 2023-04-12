@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% load static %}
+{% block title %} {{singlepost.title}} {% endblock %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/home.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/post.css'%}">
+    <link rel="stylesheet" href="{% static 'blog/postdetail.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/comment.css' %}">
+{% endblock %}
+{% block content %}
+    <section id="summary">
+        <h2>{{singlepost.title}}</h2>
+        <div>
+            {% for tag in post_tags %}
+                <span class="tag">{{tag.caption}}</span>
+            {% endfor %}
+        </div>
+        <article>
+            <img src="{{singlepost.image.url}}" alt="{{singlepost.title}}">
+            <address>By <a href="mailto:{{singlepost.author.email_address}}">{{singlepost.author}}</a></address>
+            <div>
+                Last updated on: <time>{{singlepost.date|date:"d M Y"}}</time>
+            </div>
+        </article>
+    </section>
+    <main>
+        {{singlepost.content|linebreaks}}
+    </main>
+    <section id="comnt">
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <h2>{{comment.user_name}}</h2>
+                    <p>{{comment.comment_text|linebreaks}}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+    <section id="comment-form">
+        <h2>Your Comment</h2>
+        <form action="{% url 'post_details' singlepost.slug %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-control {% if field.errors %}invalid{% endif %}">
+                {{field.label_tag}}
+                {{field}}
+                {{field.non_field_errors}}
+            </div>
+            {% endfor %}
+            <br>
+            <button type="submit">Save Comment</button>
+        </form>
+    </section>
+{% endblock %}
